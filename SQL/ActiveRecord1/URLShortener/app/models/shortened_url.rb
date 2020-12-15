@@ -7,8 +7,8 @@ class ShortenedUrl < ApplicationRecord
 
     belongs_to(
         :submitter,
-        class_name: "User"
-        foreign_key: :user_id
+        class_name: "User",
+        foreign_key: :user_id,
         primary_key: :id
     )
 
@@ -17,14 +17,15 @@ class ShortenedUrl < ApplicationRecord
             short = SecureRandom.urlsafe_base64
             if !ShortenedUrl.exists?(:short_url => short)
                 break
+            end
         end
         return short
     end
 
     def self.create_for_user_and_long_url(user, long_url)
         ShortenedUrl.create!(
-            user_id: user.id
-            long_url: long_url
+            user_id: user.id,
+            long_url: long_url,
             short_url: ShortenedUrl.random_code
         )
     end
