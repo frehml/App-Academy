@@ -23,15 +23,15 @@ class ShortenedUrl < ApplicationRecord
 
     has_many(
         :visits,
-        class_name: "User",
-        foreign_key: :user_id,
+        class_name: "Visit",
+        foreign_key: :shortened_url_id,
         primary_key: :id
     )
 
     has_many(
         :visitors,
         Proc.new { distinct }, #<<<
-        through: :visits
+        through: :visits,
         source: :visitor
     )
 
@@ -62,6 +62,6 @@ class ShortenedUrl < ApplicationRecord
     end
 
     def num_recent_uniques
-        return visitors.where('created_at < ?', 10.minutes.ago).count
+        return visits.where('created_at < ?', 10.minutes.ago).distinct.count
     end
 end
