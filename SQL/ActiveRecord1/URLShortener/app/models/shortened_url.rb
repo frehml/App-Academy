@@ -30,6 +30,7 @@ class ShortenedUrl < ApplicationRecord
 
     has_many(
         :visitors,
+        Proc.new { distinct }, #<<<
         through: :visits
         source: :visitor
     )
@@ -50,5 +51,17 @@ class ShortenedUrl < ApplicationRecord
             long_url: long_url,
             short_url: ShortenedUrl.random_code
         )
+    end
+
+    def num_clicks
+        return visits.count
+    end
+
+    def num_uniques
+        return visitors.count
+    end
+
+    def num_recent_uniques
+        return visitors.where('created_at < ?', 10.minutes.ago).count
     end
 end
