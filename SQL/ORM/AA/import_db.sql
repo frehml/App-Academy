@@ -50,7 +50,7 @@ CREATE TABLE question_likes (
 INSERT INTO 
     users (fname, lname)
 VALUES
-    ("Frederic", "Hamelink"), ("Mohamed", "Amin"), ("Josh", "Console"), ("Alex", "Hannoun");
+    ("Andre", "Beer"), ("Rachid", "Amin"), ("Dre", "Console"), ("Alex", "Blet");
 
 INSERT INTO
     questions (title, body, author_id)
@@ -59,7 +59,7 @@ SELECT
 FROM
     users u1
 WHERE
-    u1.fname = "Alex" AND u1.lname = "Hannoun";
+    u1.fname = "Alex" AND u1.lname = "Blet";
 
 INSERT INTO
     questions (title, body, author_id)
@@ -68,32 +68,32 @@ SELECT
 FROM
     users u2
 WHERE
-    fname = "Mohamed" AND lname = "Amin";
+    fname = "Rachid" AND lname = "Amin";
 
 INSERT INTO
     question_follows (question_id, user_id)
 VALUES
     ((SELECT questions.id FROM questions WHERE title = "What is the best oatmeal recipe?"),
-    (SELECT users.id FROM users WHERE fname = "Frederic" AND lname= "Hamelink"));
+    (SELECT users.id FROM users WHERE fname = "Andre" AND lname= "Beer"));
 
 INSERT INTO
     question_follows (question_id, user_id)
 VALUES
     ((SELECT questions.id FROM questions WHERE title = "Why is usel.ink so useful?"),
-    (SELECT users.id FROM users WHERE fname = "Josh" AND lname= "Console"));
+    (SELECT users.id FROM users WHERE fname = "Dre" AND lname= "Console"));
 
 INSERT INTO
     question_follows (question_id, user_id)
 VALUES
     ((SELECT questions.id FROM questions WHERE title = "Why is usel.ink so useful?"),
-    (SELECT users.id FROM users WHERE fname = "Frederic" AND lname= "Hamelink"));
+    (SELECT users.id FROM users WHERE fname = "Andre" AND lname= "Beer"));
 
 INSERT INTO
     replies (body, parent_id, author_id, question_id)
 VALUES
     ("Because they have very competent founders",
     (NULL),
-    (SELECT users.id FROM users WHERE users.fname = "Mohamed" AND users.lname = "Amin"),
+    (SELECT users.id FROM users WHERE users.fname = "Rachid" AND users.lname = "Amin"),
     (SELECT questions.id FROM questions WHERE questions.title = "Why is usel.ink so useful?"));
 
 INSERT INTO
@@ -101,7 +101,7 @@ INSERT INTO
 VALUES
     ("Idk but my mum makes good oatmeal too bro",
     (NULL),
-    (SELECT users.id FROM users WHERE users.fname = "Frederic" AND users.lname = "Hamelink"),
+    (SELECT users.id FROM users WHERE users.fname = "Andre" AND users.lname = "Beer"),
     (SELECT questions.id FROM questions WHERE questions.title = "What is the best oatmeal recipe?"));
 
 INSERT INTO
@@ -109,11 +109,11 @@ INSERT INTO
 VALUES
     ("I bet she does m8",
     (SELECT id FROM replies WHERE body = "Idk but my mum makes good oatmeal too bro"),
-    (SELECT users.id FROM users WHERE users.fname = "Alex" AND users.lname = "Hannoun"),
+    (SELECT users.id FROM users WHERE users.fname = "Alex" AND users.lname = "Blet"),
     (SELECT questions.id FROM questions WHERE questions.title = "What is the best oatmeal recipe?"));
 
 INSERT INTO
     question_likes (user_id, question_id)
 VALUES
-    ((SELECT users.id FROM users WHERE users.fname = "Alex" AND users.lname = "Hannoun"),
+    ((SELECT users.id FROM users WHERE users.fname = "Alex" AND users.lname = "Blet"),
     (SELECT questions.id FROM questions WHERE questions.title = "Why is usel.ink so useful?"));
